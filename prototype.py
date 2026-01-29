@@ -1,16 +1,41 @@
-# AI-based Robotic Dog Prototype (Initial Stage)
+import time
+import random
 
-class RoboDog:
-    def __init__(self, name):
-        self.name = name
 
-    def detect_motion(self):
-        return "Motion detected"
+class SentinelDog:
+    def __init__(self):
+        self.running = True
+        print("SentinelDog Prototype Initialized")
+        print("Monitoring environment...\n")
 
-    def respond(self):
-        return f"{self.name} is responding to the environment"
+    def read_environment(self):
+        """Simulate sensor input."""
+        return random.choice([
+            "normal activity",
+            "movement detected",
+            "sound detected",
+            "silence detected"
+        ])
 
-# Simulating basic behavior
-robodog = RoboDog("AI RoboDog")
-print(robodog.detect_motion())
-print(robodog.respond())
+    def analyze_event(self, event):
+        """Decision-making logic."""
+        if event == "silence detected":
+            self.trigger_alert()
+        else:
+            print(f"Environment status: {event}")
+
+    def trigger_alert(self):
+        """Alert mechanism."""
+        print("⚠ ALERT: Possible abnormal absence or silence detected!")
+
+    def start_monitoring(self):
+        """Main monitoring loop."""
+        while self.running:
+            event = self.read_environment()
+            self.analyze_event(event)
+            time.sleep(3)
+
+
+if __name__ == "__main__":
+    robot = SentinelDog()
+    robot.start_monitoring()
